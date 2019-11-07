@@ -28,22 +28,22 @@ public class PlannerProvider extends ContentProvider {
     public static final Uri CONTENT_URI =
             Uri.parse("content://" + AUTHORITY + "/"+TABLE_NAME);
 
-    //Column names for the ToDoList Table
-    public static final String TODO_TABLE_COL_ID = "_ID";
-    public static final String TODO_TABLE_COL_EVENT = "EVENT";
-    public static final String TODO_TABLE_COL_TYPE = "TYPE";
-    public static final String TODO_TABLE_COL_DESCRIPTION = "DESCRIPTION";
-    public static final String TODO_TABLE_COL_DATE = "DATE";
+    //Column names for the Planner Table
+    public static final String PLANNER_TABLE_COL_ID = "_ID";
+    public static final String PLANNER_TABLE_COL_TITLE = "TITLE";
+    public static final String PLANNER_TABLE_COL_TYPE = "TYPE";
+    public static final String PLANNER_TABLE_COL_DESCRIPTION = "DESCRIPTION";
+    public static final String PLANNER_TABLE_COL_DATE = "DATE";
 
     //Table create string based on column names
     private static final String SQL_CREATE_MAIN = "CREATE TABLE " +
             TABLE_NAME+ " " +                       // Table's name
             "(" +                           // The columns in the table
-            TODO_TABLE_COL_ID + " INTEGER PRIMARY KEY, " +
-            TODO_TABLE_COL_EVENT + " TEXT," +
-            TODO_TABLE_COL_TYPE + " TEXT," +
-            TODO_TABLE_COL_DESCRIPTION + " TEXT," +
-            TODO_TABLE_COL_DATE + " TEXT)";
+            PLANNER_TABLE_COL_ID + " INTEGER PRIMARY KEY, " +
+            PLANNER_TABLE_COL_TITLE + " TEXT," +
+            PLANNER_TABLE_COL_TYPE + " TEXT," +
+            PLANNER_TABLE_COL_DESCRIPTION + " TEXT," +
+            PLANNER_TABLE_COL_DATE + " TEXT)";
 
     //URI Matcher object to facilitate switch cases between URIs
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -65,7 +65,7 @@ public class PlannerProvider extends ContentProvider {
             //Match on URI with ID
             case 2:
                 String id = uri.getPathSegments().get(1);
-                selection = TODO_TABLE_COL_ID + "=" + id +
+                selection = PLANNER_TABLE_COL_ID + "=" + id +
                         (!TextUtils.isEmpty(selection) ? "AND (" + selection  + ")" : "");
                 break;
             default:
@@ -168,7 +168,7 @@ public class PlannerProvider extends ContentProvider {
             case 2:
                 //Allow updates based on a single ID
                 String id = uri.getPathSegments().get(1);
-                selection = TODO_TABLE_COL_ID + "=" + id +
+                selection = PLANNER_TABLE_COL_ID + "=" + id +
                         (!TextUtils.isEmpty(selection) ?
                                 "AND (" + selection + ")" : "");
                 break;
@@ -207,7 +207,7 @@ public class PlannerProvider extends ContentProvider {
         }
 
         public void onUpgrade(SQLiteDatabase db, int int1, int int2){
-            db.execSQL("DROP TABLE IF EXISTS ToDoList");
+            db.execSQL("DROP TABLE IF EXISTS Planner");
             onCreate(db);
 
         }
