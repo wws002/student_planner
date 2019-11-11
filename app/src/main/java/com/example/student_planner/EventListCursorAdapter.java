@@ -1,14 +1,15 @@
 package com.example.student_planner;
-
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 
 public class EventListCursorAdapter  extends CursorAdapter {
     public EventListCursorAdapter(Context context, Cursor cursor) {
@@ -29,11 +30,31 @@ public class EventListCursorAdapter  extends CursorAdapter {
         // Find fields to populate in inflated template
         ImageView circle = view.findViewById(R.id.circle);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
+
         // Extract properties from cursor
         String title = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.Planner_TABLE_COL_TITLE));
-        String content = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.Planner_TABLE_COL_TYPE));
+        String type = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.Planner_TABLE_COL_TYPE));
+
         // Populate fields with extracted properties
-        circle.setColorFilter(getContext().getResources().getColor(R.color.blue));
         tvTitle.setText(title);
+
+        //set circle to appropriate color
+        switch (type)
+        {
+            case "school" :
+                circle.getBackground().setColorFilter(Color.parseColor("red"), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "work" :
+                circle.getBackground().setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "personal":
+                circle.getBackground().setColorFilter(Color.parseColor("green"), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "social":
+                circle.getBackground().setColorFilter(Color.parseColor("yellow"), PorterDuff.Mode.SRC_ATOP);
+                break;
+            default :
+                circle.getBackground().setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_ATOP);
+        }
     }
 }
