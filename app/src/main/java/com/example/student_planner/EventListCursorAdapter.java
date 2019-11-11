@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.graphics.drawable.GradientDrawable;
 
 public class EventListCursorAdapter  extends CursorAdapter {
     public EventListCursorAdapter(Context context, Cursor cursor) {
@@ -32,8 +31,8 @@ public class EventListCursorAdapter  extends CursorAdapter {
         TextView tvTitle = view.findViewById(R.id.tvTitle);
 
         // Extract properties from cursor
-        String title = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.Planner_TABLE_COL_TITLE));
-        String type = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.Planner_TABLE_COL_TYPE));
+        String title = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.PLANNER_TABLE_COL_TITLE));
+        String type = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.PLANNER_TABLE_COL_TYPE));
 
         // Populate fields with extracted properties
         tvTitle.setText(title);
