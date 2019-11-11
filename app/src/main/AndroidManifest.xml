@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".PlannerProvider"
+            android:authorities="com.example.student_planner.plannerprovider"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>
