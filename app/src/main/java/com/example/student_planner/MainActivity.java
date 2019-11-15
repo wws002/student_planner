@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEditButtonClicked(View v){
+        setContentView(R.layout.edit_note);
+    }
 
+    public void onDoneButtonClicked(View v){
+        setContentView(R.layout.activity_main);
     }
 }
