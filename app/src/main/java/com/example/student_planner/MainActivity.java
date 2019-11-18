@@ -1,6 +1,7 @@
 package com.example.student_planner;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
+    String id = "null";
     //override methods//
 
     @Override
@@ -52,14 +54,28 @@ public class MainActivity extends AppCompatActivity {
                 //moves the cursor to event that was clicked
                 eventCursor.moveToPosition(position);
                 //starts the edit activity
-                editEvent();
+                id = eventCursor.getInt(0);
+                //String value = eventAdapter.getItemId(position);
+
             }
         });
     }
 
     //should start a new activity to edit the note on the note screen
-    void editEvent()
+    public void editEvent(View v)
     {
+        Intent intent = new Intent(this, EditEventActivity.class);
+        intent.putExtra("Id", id);
+        startActivity(intent);
 
+        startActivity(new Intent(MainActivity.this, EditEventActivity.class));
     }
+
+    public void onEditButtonClicked(View v){
+       // editEvent(id);
+    }
+
+   // public void onDoneButtonClicked(View v){
+       // setContentView(R.layout.activity_main);
+   // }
 }

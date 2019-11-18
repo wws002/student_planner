@@ -12,8 +12,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
-//Columns - id (primary key), event title, event type (school, work, social, personal), description (text), Date,
-
 public class PlannerProvider extends ContentProvider {
 
     //LOGTAG set to Class Name
