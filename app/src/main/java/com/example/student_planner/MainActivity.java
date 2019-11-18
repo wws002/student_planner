@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     void populateListDailyEvents(Long date)
     {
         //get date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String selectedDate = dateFormat.format(new Date(date));
 
         // Find ListView to populate
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         //all columns
         String[] projection = {
-                "_ID AS " + PlannerProvider.PLANNER_TABLE_COL_ID,
+                PlannerProvider.PLANNER_TABLE_COL_ID,
                 PlannerProvider.PLANNER_TABLE_COL_TITLE,
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Perform a query to get the rows that correspond that the date that is clicked on the calendar
         final Cursor eventCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection,
-                "DATE = " + selectedDate , null, null);
+                PlannerProvider.PLANNER_TABLE_COL_DATE + " = "+ selectedDate, null, null);
 
         // Setup cursor adapter using cursor from last step
         final EventListCursorAdapter eventAdapter = new EventListCursorAdapter(this, eventCursor);
