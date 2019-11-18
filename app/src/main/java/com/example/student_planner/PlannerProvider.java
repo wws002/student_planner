@@ -29,7 +29,7 @@ public class PlannerProvider extends ContentProvider {
             Uri.parse("content://" + AUTHORITY + "/"+TABLE_NAME);
 
     //Column names for the Planner Table
-    public static final String PLANNER_TABLE_COL_ID = "_ID";
+    public static final String PLANNER_TABLE_COL_ID = "_id";
     public static final String PLANNER_TABLE_COL_TITLE = "TITLE";
     public static final String PLANNER_TABLE_COL_TYPE = "TYPE";
     public static final String PLANNER_TABLE_COL_DESCRIPTION = "DESCRIPTION";
@@ -193,7 +193,7 @@ public class PlannerProvider extends ContentProvider {
          * Do not do database creation and upgrade here.
          */
         MainDatabaseHelper(Context context) {
-            super(context, DBNAME, null, 1);
+            super(context, DBNAME, null, 2);
         }
 
         /*
