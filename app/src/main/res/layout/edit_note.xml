@@ -22,6 +22,15 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="100dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text="Date"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
     
     <Spinner
         android:id="@+id/noteTypeSpinner"
