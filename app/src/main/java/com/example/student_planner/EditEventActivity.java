@@ -78,9 +78,10 @@ public class EditEventActivity extends AppCompatActivity {
                 titleTextView.setText(title);
                 TextView descriptionTextView = (TextView) findViewById(R.id.description);
                 descriptionTextView.setText(description);
-                TextView dateTextView = (TextView) findViewById(R.id.date);
-                dateTextView.setText(date);
-                Spinner typeSpinner = (Spinner) findViewById(R.id.noteTypeSpinner);
+                TextView dateTextView = (TextView)findViewById(R.id.date);
+                //Edit dateTextView = (TextView) findViewById(R.id.date);
+                //dateTextView.setText(date);
+               // Spinner typeSpinner = (Spinner)findViewById(R.id.noteTypeSpinner);
                 //Set spinner
             }
         }
@@ -133,7 +134,7 @@ public class EditEventActivity extends AppCompatActivity {
         String type = "Example";
         String description = ((EditText) findViewById(R.id.description)).getText().toString();
         String date = "01/01/2020";
-
+        String time = "8:00";
         String thisId = id;
 
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_ID, thisId);
@@ -141,6 +142,7 @@ public class EditEventActivity extends AppCompatActivity {
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TYPE, type);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION, description);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DATE, date);
+        myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, time);
 
         String[] projection = {
                 PlannerProvider.PLANNER_TABLE_COL_ID,
