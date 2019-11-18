@@ -29,5 +29,6 @@
         app:layout_constraintEnd_toEndOf="@id/listOfEvents"
         app:layout_constraintTop_toTopOf="@id/listOfEvents"
         android:layout_centerVertical="true"
+        android:onClick="onEditButtonClicked"
         android:text="Edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

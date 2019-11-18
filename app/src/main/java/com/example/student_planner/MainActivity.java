@@ -1,7 +1,5 @@
 package com.example.student_planner;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     //current date when app is launched
     long date = 0;
-    String id = "null";
+
     //override methods//
 
     @Override
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     void populateListDailyEvents(Long date)
     {
         //get date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String selectedDate = dateFormat.format(new Date(date));
 
         // Find ListView to populate
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         //all columns
         String[] projection = {
-                "_ID AS " + PlannerProvider.PLANNER_TABLE_COL_ID,
+                PlannerProvider.PLANNER_TABLE_COL_ID,
                 PlannerProvider.PLANNER_TABLE_COL_TITLE,
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Perform a query to get the rows that correspond that the date that is clicked on the calendar
         final Cursor eventCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection,
-                "DATE = " + selectedDate , null, null);
+                PlannerProvider.PLANNER_TABLE_COL_DATE + " = "+ selectedDate, null, null);
 
         // Setup cursor adapter using cursor from last step
         final EventListCursorAdapter eventAdapter = new EventListCursorAdapter(this, eventCursor);
@@ -95,30 +93,22 @@ public class MainActivity extends AppCompatActivity {
                 //moves the cursor to event that was clicked
                 eventCursor.moveToPosition(position);
                 //starts the edit activity
-                id = eventCursor.getInt(0);
-
-                //editEvent();
+                editEvent();
             }
         });
     }
 
     //should start a new activity to edit the note on the note screen
-    public void editEvent(View v)
+    void editEvent()
     {
-        Intent intent = new Intent(this, EditEventActivity.class);
-        intent.putExtra("Id", id);
-        startActivity(intent);
 
-        startActivity(new Intent(MainActivity.this, EditEventActivity.class));
     }
 
-  /*/  public void onEditButtonClicked(View v){
-       // editEvent(id);
+    public void onEditButtonClicked(View v){
+        setContentView(R.layout.edit_note);
     }
 
-   // public void onDoneButtonClicked(View v){
-       // setContentView(R.layout.activity_main);
-   // }
-
-   */
+    public void onDoneButtonClicked(View v){
+        setContentView(R.layout.activity_main);
+    }
 }

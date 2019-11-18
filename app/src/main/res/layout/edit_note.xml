@@ -11,7 +11,6 @@
         android:text="Title" />
 
     <EditText
-        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
@@ -21,19 +20,28 @@
         android:text="Content"/>
 
     <EditText
-        android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text="Date"/>
+
+    <EditText
+        android:id="@+id/Date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    
     <Spinner
         android:id="@+id/noteTypeSpinner"
         android:layout_width="200dp"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"/>
 
     <Button
         android:layout_width="70dp"
         android:layout_height="40dp"
-        android:onClick="onEditButtonClicked"
-        android:text="done" />
+        android:onClick="onDoneButtonClicked"
+        android:text="done"/>
 
 </LinearLayout>
