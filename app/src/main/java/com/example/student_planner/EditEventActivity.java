@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -76,7 +77,7 @@ public class EditEventActivity extends AppCompatActivity {
 
                 TextView titleTextView = (TextView) findViewById(R.id.title);
                 titleTextView.setText(title);
-                TextView descriptionTextView = (TextView) findViewById(R.id.description);
+                TextView descriptionTextView = (TextView) findViewById(R.id.content);
                 descriptionTextView.setText(description);
                 TextView dateTextView = (TextView)findViewById(R.id.date);
                 //Edit dateTextView = (TextView) findViewById(R.id.date);
@@ -98,9 +99,9 @@ public class EditEventActivity extends AppCompatActivity {
 
         ContentValues myCV = new ContentValues();
         String title = ((EditText) findViewById(R.id.title)).getText().toString();
-        String type = "Example";
-        String description = ((EditText) findViewById(R.id.description)).getText().toString();
-        String date = "01/01/2020";
+        String type = "school";
+        String description = ((EditText) findViewById(R.id.content)).getText().toString();
+        String date = ((EditText) findViewById(R.id.date)).getText().toString();
 
 
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TITLE, title);
@@ -132,7 +133,7 @@ public class EditEventActivity extends AppCompatActivity {
 
         String title = ((EditText) findViewById(R.id.title)).getText().toString();
         String type = "Example";
-        String description = ((EditText) findViewById(R.id.description)).getText().toString();
+        String description = ((EditText) findViewById(R.id.content)).getText().toString();
         String date = "01/01/2020";
         String time = "8:00";
         String thisId = id;
@@ -165,6 +166,18 @@ public class EditEventActivity extends AppCompatActivity {
         startActivity(intent);
 
 
+    }
+
+    public void onDoneButtonClicked(View v)
+    {
+        if(id.equals("null"))
+        {
+            newItem();
+        }
+        else
+        {
+            editItem();
+        }
     }
 }
 

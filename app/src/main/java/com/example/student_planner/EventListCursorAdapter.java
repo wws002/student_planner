@@ -3,6 +3,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +31,7 @@ public class EventListCursorAdapter  extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         // Find fields to populate in inflated template
         ImageView circle = view.findViewById(R.id.circle);
+        Drawable drawable = getDrawable(R.drawable.button_shape, null);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
 
         // Extract properties from cursor

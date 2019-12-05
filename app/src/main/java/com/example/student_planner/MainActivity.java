@@ -1,5 +1,7 @@
 package com.example.student_planner;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     //current date when app is launched
     long date = 0;
+    //id
+    String id = "null";
 
     //override methods//
 
@@ -75,9 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 PlannerProvider.PLANNER_TABLE_COL_DATE
         };
 
+        String sel = PlannerProvider.PLANNER_TABLE_COL_DATE + " = ?";
+        String[] selectionArgs = new String[1];
+        selectionArgs[0] = selectedDate;
+
         //Perform a query to get the rows that correspond that the date that is clicked on the calendar
         final Cursor eventCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection,
-                PlannerProvider.PLANNER_TABLE_COL_DATE + " = "+ selectedDate, null, null);
+                sel, selectionArgs, null);
 
         // Setup cursor adapter using cursor from last step
         final EventListCursorAdapter eventAdapter = new EventListCursorAdapter(this, eventCursor);
@@ -93,22 +101,16 @@ public class MainActivity extends AppCompatActivity {
                 //moves the cursor to event that was clicked
                 eventCursor.moveToPosition(position);
                 //starts the edit activity
-                editEvent();
+                onEditButtonClicked(view);
             }
         });
     }
 
     //should start a new activity to edit the note on the note screen
-    void editEvent()
+    public void onEditButtonClicked(View v)
     {
-
-    }
-
-    public void onEditButtonClicked(View v){
-        setContentView(R.layout.edit_note);
-    }
-
-    public void onDoneButtonClicked(View v){
-        setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this, EditEventActivity.class);
+        intent.putExtra("Id", id);
+        startActivity(intent);
     }
 }
