@@ -6,26 +6,54 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/titleTV"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:text="Title" />
 
     <EditText
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
     <TextView
+        android:id="@+id/contentTV"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:text="Content"/>
 
     <EditText
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="100dp"/>
+
+    <TextView
+        android:id="@+id/dateTV"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text="Date"/>
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:ems="10"
+        android:onClick="onClick"
+        android:editable="false"
+        android:text="Date..."
+/>
+    
+    <Spinner
+        android:id="@+id/noteTypeSpinner"
+        android:layout_width="200dp"
+        android:layout_height="50dp"/>
+
     <Button
+        android:id="@+id/done"
         android:layout_width="70dp"
         android:layout_height="40dp"
-        android:onClick="onDoneButtonClicked"
+        android:onClick="onClick"
         android:text="done"/>
 
 </LinearLayout>

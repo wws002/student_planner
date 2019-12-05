@@ -12,8 +12,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
-//Columns - id (primary key), event title, event type (school, work, social, personal), description (text), Date,
-
 public class PlannerProvider extends ContentProvider {
 
     //LOGTAG set to Class Name
@@ -29,11 +27,13 @@ public class PlannerProvider extends ContentProvider {
             Uri.parse("content://" + AUTHORITY + "/"+TABLE_NAME);
 
     //Column names for the Planner Table
-    public static final String PLANNER_TABLE_COL_ID = "_ID";
+    public static final String PLANNER_TABLE_COL_ID = "_id";
     public static final String PLANNER_TABLE_COL_TITLE = "TITLE";
     public static final String PLANNER_TABLE_COL_TYPE = "TYPE";
     public static final String PLANNER_TABLE_COL_DESCRIPTION = "DESCRIPTION";
     public static final String PLANNER_TABLE_COL_DATE = "DATE";
+    public static final String PLANNER_TABLE_COL_TIME = "TIME";
+
 
     //Table create string based on column names
     private static final String SQL_CREATE_MAIN = "CREATE TABLE " +
@@ -43,7 +43,8 @@ public class PlannerProvider extends ContentProvider {
             PLANNER_TABLE_COL_TITLE + " TEXT," +
             PLANNER_TABLE_COL_TYPE + " TEXT," +
             PLANNER_TABLE_COL_DESCRIPTION + " TEXT," +
-            PLANNER_TABLE_COL_DATE + " TEXT)";
+            PLANNER_TABLE_COL_DATE + " TEXT," +
+            PLANNER_TABLE_COL_TIME + " TEXT)";
 
     //URI Matcher object to facilitate switch cases between URIs
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -193,7 +194,7 @@ public class PlannerProvider extends ContentProvider {
          * Do not do database creation and upgrade here.
          */
         MainDatabaseHelper(Context context) {
-            super(context, DBNAME, null, 1);
+            super(context, DBNAME, null, 2);
         }
 
         /*
