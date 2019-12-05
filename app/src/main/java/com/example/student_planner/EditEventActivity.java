@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 public class EditEventActivity extends AppCompatActivity {
 
@@ -195,6 +196,11 @@ public class EditEventActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_item, event_type);
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(adapter);
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 }
 
