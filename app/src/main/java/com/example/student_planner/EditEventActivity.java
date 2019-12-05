@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,6 +29,12 @@ public class EditEventActivity extends AppCompatActivity {
 
         setFields(id);
 
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        populateSpinner();
     }
 
 
@@ -178,6 +185,16 @@ public class EditEventActivity extends AppCompatActivity {
         {
             editItem();
         }
+    }
+
+    public void populateSpinner(){
+        String[] event_type = {"School", "Work", "Social", "Personal"};
+
+        Spinner spinner = findViewById(R.id.noteTypeSpinner);
+        //spinner.setOnItemClickListener(this);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_item, event_type);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner.setAdapter(adapter);
     }
 }
 

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">student_planner</string>
+
+    <string-array name="event_type">
+        <item> name="School"</item>
+        <item> name="Work"</item>
+        <item> name="Personal"</item>
+        <item> name="Social"</item>
+    </string-array>
+
 </resources>
