@@ -20,8 +20,9 @@
         android:text="Content"/>
 
     <EditText
+        android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="100dp" />
 
     <TextView
         android:layout_width="match_parent"
