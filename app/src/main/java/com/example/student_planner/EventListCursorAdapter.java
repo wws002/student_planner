@@ -31,7 +31,7 @@ public class EventListCursorAdapter  extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         // Find fields to populate in inflated template
         ImageView circle = view.findViewById(R.id.circle);
-        Drawable drawable = getDrawable(R.drawable.button_shape, null);
+        //Drawable drawable = getDrawable(R.drawable.button_shape, null);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
 
         // Extract properties from cursor
@@ -45,19 +45,19 @@ public class EventListCursorAdapter  extends CursorAdapter {
         switch (type)
         {
             case "school" :
-                circle.getBackground().setColorFilter(Color.parseColor("red"), PorterDuff.Mode.SRC_ATOP);
+                circle.setColorFilter(Color.parseColor("red"), PorterDuff.Mode.SRC_ATOP);
                 break;
             case "work" :
-                circle.getBackground().setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_ATOP);
+                circle.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_ATOP);
                 break;
             case "personal":
-                circle.getBackground().setColorFilter(Color.parseColor("green"), PorterDuff.Mode.SRC_ATOP);
+                circle.setColorFilter(Color.parseColor("green"), PorterDuff.Mode.SRC_ATOP);
                 break;
             case "social":
-                circle.getBackground().setColorFilter(Color.parseColor("yellow"), PorterDuff.Mode.SRC_ATOP);
+                circle.setColorFilter(Color.parseColor("yellow"), PorterDuff.Mode.SRC_ATOP);
                 break;
             default :
-                circle.getBackground().setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_ATOP);
+                circle.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_ATOP);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.student_planner;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -7,12 +8,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class EditEventActivity extends AppCompatActivity {
 
@@ -33,25 +39,27 @@ public class EditEventActivity extends AppCompatActivity {
 
     public void setFields(String id) {
         int found = 0;
-        String title;
-        String date;
-        String description;
-        String type;
 
-        String[] projection = {
-                PlannerProvider.PLANNER_TABLE_COL_ID,
-                PlannerProvider.PLANNER_TABLE_COL_TITLE,
-                PlannerProvider.PLANNER_TABLE_COL_TYPE,
-                PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                PlannerProvider.PLANNER_TABLE_COL_DATE};
 
-        Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, "_ID DESC");
+
         if (id.equals("null"))
         {
-
         }
         else
             {
+                String title;
+                String date;
+                String description;
+                String type;
+                String[] projection = {
+                        PlannerProvider.PLANNER_TABLE_COL_ID,
+                        PlannerProvider.PLANNER_TABLE_COL_TITLE,
+                        PlannerProvider.PLANNER_TABLE_COL_TYPE,
+                        PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
+                        PlannerProvider.PLANNER_TABLE_COL_DATE};
+
+                Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, "_ID DESC");
+
             int i = 0;
             if (myCursor != null && myCursor.getCount() > 0) {
                 String titles[] = new String[myCursor.getCount()];
@@ -72,8 +80,8 @@ public class EditEventActivity extends AppCompatActivity {
                 myCursor.moveToPosition(position);
                 title = myCursor.getString(1);
                 type = myCursor.getString(2);
-                description = myCursor.getString(4);
-                date = myCursor.getString(3);
+                description = myCursor.getString(3);
+                date = myCursor.getString(4);
 
                 TextView titleTextView = (TextView) findViewById(R.id.title);
                 titleTextView.setText(title);
@@ -81,7 +89,7 @@ public class EditEventActivity extends AppCompatActivity {
                 descriptionTextView.setText(description);
                 TextView dateTextView = (TextView)findViewById(R.id.date);
                 //Edit dateTextView = (TextView) findViewById(R.id.date);
-                //dateTextView.setText(date);
+                dateTextView.setText(date);
                // Spinner typeSpinner = (Spinner)findViewById(R.id.noteTypeSpinner);
                 //Set spinner
             }
@@ -120,8 +128,8 @@ public class EditEventActivity extends AppCompatActivity {
 
         Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, null);
         if (myCursor != null && myCursor.getCount() > 0) {
-            String getTitle = myCursor.getString(1);
-            Toast.makeText(getApplicationContext(), "Created Event: " + getTitle, Toast.LENGTH_LONG).show();
+            //String getTitle = myCursor.getString(1);
+           // Toast.makeText(getApplicationContext(), "Created Event: " + getTitle, Toast.LENGTH_LONG).show();
 
         }
         Intent intent = new Intent(this, MainActivity.class);
@@ -134,7 +142,7 @@ public class EditEventActivity extends AppCompatActivity {
         String title = ((EditText) findViewById(R.id.title)).getText().toString();
         String type = "Example";
         String description = ((EditText) findViewById(R.id.content)).getText().toString();
-        String date = "01/01/2020";
+        String date = ((EditText) findViewById(R.id.date)).getText().toString();
         String time = "8:00";
         String thisId = id;
 
@@ -168,6 +176,66 @@ public class EditEventActivity extends AppCompatActivity {
 
     }
 
+
+
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            case R.id.done:
+
+                //If new todo is being created
+                if(id.equals("null"))
+                {
+                    newItem();
+                }
+
+                // If a todo is being updated
+                else
+                {
+                    editItem();
+                }
+                break;
+
+
+            // Opens up the calendar view for the user.
+            case R.id.date:
+                calendarPicker();
+                break;
+            default:
+                break;
+        }
+    }
+
+    void calendarPicker()
+    {
+        final Calendar myCalendar = Calendar.getInstance();
+        final EditText editText = (EditText)findViewById(R.id.date);
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel(editText, myCalendar);
+            }
+        };
+
+
+        new DatePickerDialog(EditEventActivity.this, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    void updateLabel(EditText editText, Calendar myCalendar)
+    {
+        String myFormat = "MM/dd/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        editText.setText(sdf.format(myCalendar.getTime()));
+
+
+    }
+    /*
     public void onDoneButtonClicked(View v)
     {
         if(id.equals("null"))
@@ -179,6 +247,8 @@ public class EditEventActivity extends AppCompatActivity {
             editItem();
         }
     }
+    */
+
 }
 
 
