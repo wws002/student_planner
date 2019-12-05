@@ -36,7 +36,13 @@
     <EditText
         android:id="@+id/date"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:ems="10"
+        android:onClick="onClick"
+        android:editable="false"
+        android:text="Date..."
+/>
     
     <Spinner
         android:id="@+id/noteTypeSpinner"
@@ -53,7 +59,7 @@
         android:id="@+id/done"
         android:layout_width="70dp"
         android:layout_height="40dp"
-        android:onClick="onDoneButtonClicked"
+        android:onClick="onClick"
         android:text="done"/>
 
 </LinearLayout>
