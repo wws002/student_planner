@@ -8,6 +8,7 @@
         android:id="@+id/circle"
         android:layout_width="10dp"
         android:layout_height="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentLeft="true"
         android:src="@drawable/circle"
         android:layout_centerVertical="true" />

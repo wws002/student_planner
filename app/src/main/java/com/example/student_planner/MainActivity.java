@@ -12,7 +12,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
+import static java.util.Calendar.DAY_OF_MONTH;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,30 +31,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     protected void onStart()
     {
         super.onStart();
-        // populateListDailyEvents(date);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         setContentView(R.layout.activity_main);
-        //date = getDa;
+        CalendarView calendar = findViewById(R.id.calendar);
+        Calendar c = Calendar.getInstance(TimeZone.getDefault());
+        c.setTimeInMillis(calendar.getDate());
+        int day = c.get(DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH) + 1;
+        int year = c.get(Calendar.YEAR);
+        populateListDailyEvents(year, month, day);
         setCalListener();
-        //populateListDailyEvents(c);
 
     }
 
     //our methods//
 
- /*   long getDate()
-    {
-        CalendarView calendar = findViewById(R.id.calendar);
-        return calendar.getDate();
-    }
-*/
     void setCalListener()
     {
 
@@ -61,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
                                             int dayOfMonth) {
                 month = month + 1;
                 populateListDailyEvents(year, month, dayOfMonth);
-
-                //Toast.makeText(getApplicationContext(), toString()calendar.getDate(), 0).show();// TODO Auto-generated method stub
             }
         });
 
@@ -72,9 +75,17 @@ public class MainActivity extends AppCompatActivity {
     //this method populates the listview with what is in the PlannerProvider
     void populateListDailyEvents(int year, int month, int dayOfMonth)
     {
-        //get date
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
-        String selectedDate = month + "/" + dayOfMonth + "/" + year; //dateFormat.format(new Date(date));
+        String selectedDate;
+
+        //make the day of the month a double digit if necessary
+        if(dayOfMonth < 10) {
+            selectedDate = month + "/0" + dayOfMonth + "/" + year;
+
+        }
+        else
+        {
+            selectedDate = month + "/" + dayOfMonth + "/" + year;
+        }
 
         // Find ListView to populate
         final ListView events = findViewById(R.id.listOfEvents);
