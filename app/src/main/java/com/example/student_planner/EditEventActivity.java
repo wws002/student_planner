@@ -64,7 +64,9 @@ public class EditEventActivity extends AppCompatActivity {
                         PlannerProvider.PLANNER_TABLE_COL_TITLE,
                         PlannerProvider.PLANNER_TABLE_COL_TYPE,
                         PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                        PlannerProvider.PLANNER_TABLE_COL_DATE};
+                        PlannerProvider.PLANNER_TABLE_COL_DATE,
+                        PlannerProvider.PLANNER_TABLE_COL_TIME,
+                        PlannerProvider.PLANNER_TABLE_COL_ADDRESS};
 
                 Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, "_ID DESC");
 
@@ -118,12 +120,15 @@ public class EditEventActivity extends AppCompatActivity {
         String type = "school";
         String description = ((EditText) findViewById(R.id.content)).getText().toString();
         String date = ((EditText) findViewById(R.id.date)).getText().toString();
-
+        String address = ((EditText)findViewById(R.id.address)).getText().toString();
+        String time = ((EditText)findViewById(R.id.time)).getText().toString();
 
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TITLE, title);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TYPE, type);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION, description);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DATE, date);
+        myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, time);
+        myCV.put(PlannerProvider.PLANNER_TABLE_COL_ADDRESS, address);
 
         getContentResolver().insert(PlannerProvider.CONTENT_URI, myCV);
 
@@ -132,7 +137,9 @@ public class EditEventActivity extends AppCompatActivity {
                 PlannerProvider.PLANNER_TABLE_COL_TITLE,
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                PlannerProvider.PLANNER_TABLE_COL_DATE,};
+                PlannerProvider.PLANNER_TABLE_COL_DATE,
+                PlannerProvider.PLANNER_TABLE_COL_TIME,
+                PlannerProvider.PLANNER_TABLE_COL_ADDRESS};
 
         Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, null);
         if (myCursor != null && myCursor.getCount() > 0) {
@@ -211,7 +218,18 @@ public class EditEventActivity extends AppCompatActivity {
                 break;
             default:
                 break;
+
+            case R.id.maps:
+                openMap();
+                break;
         }
+    }
+
+    void openMap()
+    {
+        Intent intent = new Intent(this, MapsActivity.class);
+       // intent.putExtra("Id", id);
+        startActivity(intent);
     }
 
     void calendarPicker()
