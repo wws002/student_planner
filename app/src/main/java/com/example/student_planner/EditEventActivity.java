@@ -59,12 +59,16 @@ public class EditEventActivity extends AppCompatActivity {
                 String date;
                 String description;
                 String type;
+                String time;
+                String address;
                 String[] projection = {
                         PlannerProvider.PLANNER_TABLE_COL_ID,
                         PlannerProvider.PLANNER_TABLE_COL_TITLE,
                         PlannerProvider.PLANNER_TABLE_COL_TYPE,
                         PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                        PlannerProvider.PLANNER_TABLE_COL_DATE};
+                        PlannerProvider.PLANNER_TABLE_COL_DATE,
+                        PlannerProvider.PLANNER_TABLE_COL_TIME,
+                        PlannerProvider.PLANNER_TABLE_COL_ADDRESS};
 
                 Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, "_ID DESC");
 
@@ -90,16 +94,40 @@ public class EditEventActivity extends AppCompatActivity {
                 type = myCursor.getString(2);
                 description = myCursor.getString(3);
                 date = myCursor.getString(4);
+                time = myCursor.getString(5);
+                address = myCursor.getString(6);
 
                 TextView titleTextView = (TextView) findViewById(R.id.title);
                 titleTextView.setText(title);
                 TextView descriptionTextView = (TextView) findViewById(R.id.content);
                 descriptionTextView.setText(description);
                 TextView dateTextView = (TextView)findViewById(R.id.date);
-                //Edit dateTextView = (TextView) findViewById(R.id.date);
                 dateTextView.setText(date);
-               // Spinner typeSpinner = (Spinner)findViewById(R.id.noteTypeSpinner);
-                //Set spinner
+                Spinner typeSpinner = (Spinner)findViewById(R.id.noteTypeSpinner);
+
+                int typePos = 0;
+
+                switch (type)
+                {
+                    case "School":
+                        typePos = 1;
+                        break;
+                    case "Work":
+                        typePos = 2;
+                        break;
+                    case "Social":
+                        typePos = 3;
+                        break;
+                    case "Personal":
+                        typePos = 4;
+                        break;
+                }
+
+                typeSpinner.setSelection(typePos);
+                TextView timeTextView = (TextView) findViewById(R.id.time);
+                titleTextView.setText(time);
+                TextView addressTextView = (TextView) findViewById(R.id.address);
+                descriptionTextView.setText(address);
             }
         }
 
@@ -115,15 +143,20 @@ public class EditEventActivity extends AppCompatActivity {
 
         ContentValues myCV = new ContentValues();
         String title = ((EditText) findViewById(R.id.title)).getText().toString();
-        String type = "school";
+        String type = ((Spinner) findViewById(R.id.noteTypeSpinner)).getSelectedItem().toString();
         String description = ((EditText) findViewById(R.id.content)).getText().toString();
         String date = ((EditText) findViewById(R.id.date)).getText().toString();
+        String time = ((EditText) findViewById(R.id.time)).getText().toString();
+        String address = ((EditText)findViewById(R.id.address)).getText().toString();
+
 
 
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TITLE, title);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TYPE, type);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION, description);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DATE, date);
+        myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, time);
+        myCV.put(PlannerProvider.PLANNER_TABLE_COL_ADDRESS, address);
 
         getContentResolver().insert(PlannerProvider.CONTENT_URI, myCV);
 
@@ -132,7 +165,9 @@ public class EditEventActivity extends AppCompatActivity {
                 PlannerProvider.PLANNER_TABLE_COL_TITLE,
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                PlannerProvider.PLANNER_TABLE_COL_DATE,};
+                PlannerProvider.PLANNER_TABLE_COL_DATE,
+                PlannerProvider.PLANNER_TABLE_COL_TIME,
+                PlannerProvider.PLANNER_TABLE_COL_ADDRESS};
 
         Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, null);
         if (myCursor != null && myCursor.getCount() > 0) {
@@ -140,6 +175,10 @@ public class EditEventActivity extends AppCompatActivity {
            // Toast.makeText(getApplicationContext(), "Created Event: " + getTitle, Toast.LENGTH_LONG).show();
 
         }
+
+
+
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -147,12 +186,13 @@ public class EditEventActivity extends AppCompatActivity {
     private void editItem() {
         ContentValues myCV = new ContentValues();
 
+        String thisId = id;
         String title = ((EditText) findViewById(R.id.title)).getText().toString();
-        String type = "Example";
+        String type = ((Spinner)findViewById(R.id.noteTypeSpinner)).getSelectedItem().toString();
         String description = ((EditText) findViewById(R.id.content)).getText().toString();
         String date = ((EditText) findViewById(R.id.date)).getText().toString();
-        String time = "8:00";
-        String thisId = id;
+        String time = ((EditText)findViewById(R.id.time)).getText().toString();
+        String address = ((EditText)findViewById(R.id.address)).getText().toString();
 
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_ID, thisId);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TITLE, title);
@@ -160,13 +200,16 @@ public class EditEventActivity extends AppCompatActivity {
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION, description);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DATE, date);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, time);
+        myCV.put(PlannerProvider.PLANNER_TABLE_COL_ADDRESS, address);
 
         String[] projection = {
                 PlannerProvider.PLANNER_TABLE_COL_ID,
                 PlannerProvider.PLANNER_TABLE_COL_TITLE,
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                PlannerProvider.PLANNER_TABLE_COL_DATE};
+                PlannerProvider.PLANNER_TABLE_COL_DATE,
+                PlannerProvider.PLANNER_TABLE_COL_TIME,
+                PlannerProvider.PLANNER_TABLE_COL_ADDRESS};
 
         Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, null);
 
@@ -180,7 +223,6 @@ public class EditEventActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
 
     }
 
@@ -211,7 +253,18 @@ public class EditEventActivity extends AppCompatActivity {
                 break;
             default:
                 break;
+
+           // case R.id.maps:
+             //   openMap();
+               // break;
         }
+    }
+
+    void openMap()
+    {
+        Intent intent = new Intent(this, MapsActivity.class);
+        // intent.putExtra("Id", id);
+        startActivity(intent);
     }
 
     void calendarPicker()

@@ -3,57 +3,103 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/background">
 
     <TextView
         android:id="@+id/titleTV"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="Title" />
+        android:layout_width="80dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Title"
+        style="@style/titleBar"/>
 
     <EditText
         android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/titleTV"
+        style="@style/titleText"/>
 
     <TextView
         android:id="@+id/contentTV"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="Content"/>
+        android:layout_height="30dp"
+        android:text="Content"
+        android:translationY="40dp"
+        android:translationX="10dp"
+        style="@style/contentBar"/>
 
     <EditText
         android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_width="300dp"
+        android:layout_height="350dp"
+        android:translationY="40dp"
+        android:translationX="10dp"
+        style="@style/contentText"/>
 
     <TextView
         android:id="@+id/dateTV"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="Date"/>
+        android:layout_height="25dp"
+        android:text="Date"
+        android:translationY="40dp"
+        android:translationX="10dp"
+        style="@style/dateTitle"/>
 
     <EditText
         android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
         android:clickable="true"
         android:ems="10"
         android:onClick="onClick"
         android:editable="false"
         android:text="Date..."
-/>
-    
+        android:translationY="40dp"
+        android:translationX="10dp"
+        style="@style/dateSelection"/>
+
+    <TextView
+        android:id="@+id/typeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Type:"
+        android:translationY="80dp"
+        android:translationX="35dp"
+        style="@style/dateTitle"/>
+
     <Spinner
         android:id="@+id/noteTypeSpinner"
         android:layout_width="200dp"
-        android:layout_height="50dp"/>
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:translationY="50dp"
+        style="@style/spinner"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="49dp"
+        android:layout_height="31dp"
+        android:onClick="onClick"
+        android:text="Button" />
 
     <Button
         android:id="@+id/done"
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:onClick="onClick"
+        android:layout_gravity="center_horizontal"
+        android:translationY="60dp"
         android:text="done"/>
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        />
 
 </LinearLayout>
