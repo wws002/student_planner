@@ -39,19 +39,15 @@
         android:translationX="10dp"
         style="@style/contentText"/>
 
-<!--    <TextView-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:translationX="10dp"-->
-<!--        android:text="Address:"-->
-<!--        android:translationY="40dp"-->
-<!--        style="@style/address"/>-->
-<!--    -->
-<!--    <EditText-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:translationY="12dp"-->
-<!--        android:translationX="90dp"/>-->
+
+    <TextView
+        android:id="@+id/dateTV"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="Date"
+        android:translationY="40dp"
+        android:translationX="10dp"
+        style="@style/dateTitle"/>
 
     <EditText
         android:id="@+id/date"
@@ -75,6 +71,10 @@
         android:hint="Choose a time"
         style="@style/timeTitle"/>
 
+        android:translationY="40dp"
+        android:translationX="10dp"
+        style="@style/dateSelection"/>
+
     <TextView
         android:id="@+id/typeTitle"
         android:layout_width="match_parent"
@@ -94,6 +94,14 @@
         style="@style/spinner"/>
 
     <Button
+        android:id="@+id/button"
+        android:layout_width="49dp"
+        android:layout_height="31dp"
+        android:onClick="onClick"
+        android:text="Button" />
+
+
+    <Button
         android:id="@+id/done"
         android:layout_width="70dp"
         android:layout_height="40dp"
@@ -101,5 +109,7 @@
         android:layout_gravity="center_horizontal"
         android:translationY="60dp"
         android:text="done"/>
+
+
 
 </LinearLayout>
