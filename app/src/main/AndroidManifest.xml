@@ -28,6 +28,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+<<<<<<< HEAD
+=======
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+>>>>>>> 306220b4c96cf6f7c8d4e7cbc466f1932171d299
         <provider
             android:name=".PlannerProvider"
             android:authorities="com.example.student_planner.plannerprovider"

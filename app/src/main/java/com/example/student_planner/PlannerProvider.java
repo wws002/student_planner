@@ -34,6 +34,10 @@ public class PlannerProvider extends ContentProvider {
     public static final String PLANNER_TABLE_COL_DATE = "DATE";
     public static final String PLANNER_TABLE_COL_TIME = "TIME";
     public static final String PLANNER_TABLE_COL_ADDRESS = "ADDRESS";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 306220b4c96cf6f7c8d4e7cbc466f1932171d299
 
     //Table create string based on column names
     private static final String SQL_CREATE_MAIN = "CREATE TABLE " +

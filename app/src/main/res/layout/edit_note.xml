@@ -95,11 +95,20 @@
         android:translationY="60dp"
         android:text="done"/>
 
+<<<<<<< HEAD
     <EditText
         android:id="@+id/address"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         />
+=======
+    <Button
+        android:id="@+id/maps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Button" />
+>>>>>>> 306220b4c96cf6f7c8d4e7cbc466f1932171d299
 
 </LinearLayout>
