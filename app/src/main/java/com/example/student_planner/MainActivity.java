@@ -20,10 +20,6 @@ import static java.util.Calendar.DAY_OF_MONTH;
 
 public class MainActivity extends AppCompatActivity {
 
-    //current date when app is launched
-    //long date = getDate();
-    long date = 0;
-    //id
     String id = "null";
 
     //override methods//
