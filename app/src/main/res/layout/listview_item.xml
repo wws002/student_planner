@@ -8,13 +8,20 @@
         android:id="@+id/circle"
         android:layout_width="10dp"
         android:layout_height="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentLeft="true"
         android:src="@drawable/circle"
         android:layout_centerVertical="true" />
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/circle"
+        android:layout_centerVertical="true" />
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tvTitle"
         android:layout_centerVertical="true" />
 </RelativeLayout>

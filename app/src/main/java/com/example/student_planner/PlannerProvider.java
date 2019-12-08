@@ -33,6 +33,7 @@ public class PlannerProvider extends ContentProvider {
     public static final String PLANNER_TABLE_COL_DESCRIPTION = "DESCRIPTION";
     public static final String PLANNER_TABLE_COL_DATE = "DATE";
     public static final String PLANNER_TABLE_COL_TIME = "TIME";
+    public static final String PLANNER_TABLE_COL_ADDRESS = "ADDRESS";
 
 
     //Table create string based on column names
@@ -44,7 +45,8 @@ public class PlannerProvider extends ContentProvider {
             PLANNER_TABLE_COL_TYPE + " TEXT," +
             PLANNER_TABLE_COL_DESCRIPTION + " TEXT," +
             PLANNER_TABLE_COL_DATE + " TEXT," +
-            PLANNER_TABLE_COL_TIME + " TEXT)";
+            PLANNER_TABLE_COL_TIME + " TEXT," +
+            PLANNER_TABLE_COL_ADDRESS + "TEXT)";
 
     //URI Matcher object to facilitate switch cases between URIs
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -194,7 +196,7 @@ public class PlannerProvider extends ContentProvider {
          * Do not do database creation and upgrade here.
          */
         MainDatabaseHelper(Context context) {
-            super(context, DBNAME, null, 2);
+            super(context, DBNAME, null, 5);
         }
 
         /*
@@ -215,6 +217,3 @@ public class PlannerProvider extends ContentProvider {
     }
 
 }
-
-
-
