@@ -31,15 +31,17 @@ public class EventListCursorAdapter  extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         // Find fields to populate in inflated template
         ImageView circle = view.findViewById(R.id.circle);
-
         TextView tvTitle = view.findViewById(R.id.tvTitle);
+        TextView tvTime = view.findViewById(R.id.tvTime);
 
         // Extract properties from cursor
         String title = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.PLANNER_TABLE_COL_TITLE));
         String type = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.PLANNER_TABLE_COL_TYPE));
+        String time = cursor.getString(cursor.getColumnIndexOrThrow(PlannerProvider.PLANNER_TABLE_COL_TIME));
 
         // Populate fields with extracted properties
         tvTitle.setText(title);
+        tvTime.setText(time);
 
         //set circle to appropriate color
         switch (type)

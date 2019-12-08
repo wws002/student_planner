@@ -1,13 +1,17 @@
 package com.example.student_planner;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -54,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
     void setCalListener()
     {
-
         final CalendarView calendar = findViewById(R.id.calendar);
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -64,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 populateListDailyEvents(year, month, dayOfMonth);
             }
         });
-
-
     }
 
     //this method populates the listview with what is in the PlannerProvider

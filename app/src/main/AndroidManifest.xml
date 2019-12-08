@@ -27,6 +27,15 @@
             android:authorities="com.example.student_planner.plannerprovider"
             android:enabled="true"
             android:exported="true"></provider>
+
+        <!-- Register the Alarm Receiver -->
+        <receiver android:name=".AlarmReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

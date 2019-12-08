@@ -1,10 +1,13 @@
 package com.example.student_planner;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,21 +24,24 @@ import androidx.fragment.app.DialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class EditEventActivity extends AppCompatActivity {
 
     String id;
     int position = 0;
+    private TimePicker timePicker1;
+    private String format = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_note);
-
         id = getIntent().getStringExtra("Id");
-
         setFields(id);
+        createNotificationChannel();
+        timePicker1 = findViewById(R.id.timePicker1);
 
     }
 
@@ -48,8 +55,6 @@ public class EditEventActivity extends AppCompatActivity {
     public void setFields(String id) {
         int found = 0;
 
-
-
         if (id.equals("null"))
         {
         }
@@ -59,12 +64,14 @@ public class EditEventActivity extends AppCompatActivity {
                 String date;
                 String description;
                 String type;
+                String time;
                 String[] projection = {
                         PlannerProvider.PLANNER_TABLE_COL_ID,
                         PlannerProvider.PLANNER_TABLE_COL_TITLE,
                         PlannerProvider.PLANNER_TABLE_COL_TYPE,
                         PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                        PlannerProvider.PLANNER_TABLE_COL_DATE};
+                        PlannerProvider.PLANNER_TABLE_COL_DATE,
+                        PlannerProvider.PLANNER_TABLE_COL_TIME};
 
                 Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, "_ID DESC");
 
@@ -270,6 +277,64 @@ public class EditEventActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "dateReminder";
+            String description = "reminds the user when a due date has come";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("101", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void setTime(View view) {
+        int hour = timePicker1.getCurrentHour();
+        int min = timePicker1.getCurrentMinute();
+        showTime(hour, min);
+    }
+
+    public void showTime(int hour, int min) {
+        if (hour == 0) {
+            hour += 12;
+            format = "AM";
+        } else if (hour == 12) {
+            format = "PM";
+        } else if (hour > 12) {
+            hour -= 12;
+            format = "PM";
+        } else {
+            format = "AM";
+        }
+
+        time.setText(new StringBuilder().append(hour).append(" : ").append(min)
+                .append(" ").append(format));
+    }
+
+    void createNotification(String date, String title, int id)
+    {
+        if(date == null)
+        {
+            return;
+        }
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm a");
+            Date dateOb = sdf.parse(date);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dateOb);
+            NotificationScheduler.setReminder(this, AlarmReceiver.class, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_WEEK), cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), title, id);
+        }
+        catch(java.text.ParseException e){
+            e.printStackTrace();
+        }
+
+    }
 
 }
 
