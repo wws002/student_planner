@@ -3,6 +3,7 @@ package com.example.student_planner;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -31,8 +32,13 @@ public class EditEventActivity extends AppCompatActivity {
 
     String id;
     int position = 0;
-    private TimePicker timePicker1;
-    private String format = "";
+    EditText chooseTime;
+    TimePickerDialog timePickerDialog;
+    Calendar calendar;
+    int currentHour;
+    int currentMinute;
+    String amPm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +47,7 @@ public class EditEventActivity extends AppCompatActivity {
         id = getIntent().getStringExtra("Id");
         setFields(id);
         createNotificationChannel();
-        timePicker1 = findViewById(R.id.timePicker1);
+        timePicker();
 
     }
 
@@ -51,6 +57,33 @@ public class EditEventActivity extends AppCompatActivity {
         populateSpinner();
     }
 
+    public void timePicker()
+    {
+        chooseTime = findViewById(R.id.timeSelection);
+        chooseTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+                timePickerDialog = new TimePickerDialog(EditEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = "PM";
+                        } else {
+                            amPm = "AM";
+                        }
+                        chooseTime.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                    }
+                }, currentHour, currentMinute, false);
+
+                timePickerDialog.show();
+            }
+        });
+    }
+    }
 
     public void setFields(String id) {
         int found = 0;
@@ -293,28 +326,7 @@ public class EditEventActivity extends AppCompatActivity {
         }
     }
 
-    public void setTime(View view) {
-        int hour = timePicker1.getCurrentHour();
-        int min = timePicker1.getCurrentMinute();
-        showTime(hour, min);
-    }
 
-    public void showTime(int hour, int min) {
-        if (hour == 0) {
-            hour += 12;
-            format = "AM";
-        } else if (hour == 12) {
-            format = "PM";
-        } else if (hour > 12) {
-            hour -= 12;
-            format = "PM";
-        } else {
-            format = "AM";
-        }
-
-        time.setText(new StringBuilder().append(hour).append(" : ").append(min)
-                .append(" ").append(format));
-    }
 
     void createNotification(String date, String title, int id)
     {
