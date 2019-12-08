@@ -57,7 +57,7 @@ public class EditEventActivity extends AppCompatActivity {
         populateSpinner();
     }
 
-    public void timePicker()
+    public void timePicker(View view)
     {
         chooseTime = findViewById(R.id.timeSelection);
         chooseTime.setOnClickListener(new View.OnClickListener() {
