@@ -72,7 +72,7 @@
         android:layout_height="25dp"
         android:translationX="150dp"
         android:translationY="22dp"
-        android:text="Choose a time"
+        android:hint="Choose a time"
         style="@style/timeTitle"/>
 
     <TextView

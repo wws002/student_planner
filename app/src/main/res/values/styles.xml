@@ -31,10 +31,10 @@
         <item name="android:background">#cccccc</item>
     </style>
 
-    <style name="address">
-        <item name="android:textColor">#ffffff</item>
-        <itme name="android:textSize">20dp</itme>
-    </style>
+<!--    <style name="address">-->
+<!--        <item name="android:textColor">#ffffff</item>-->
+<!--        <itme name="android:textSize">20dp</itme>-->
+<!--    </style>-->
 
     <style name="dateTitle">
         <item name="android:textColor">#ffffff</item>
