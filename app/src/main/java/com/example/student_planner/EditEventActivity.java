@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public class EditEventActivity extends AppCompatActivity {
 
@@ -57,7 +58,7 @@ public class EditEventActivity extends AppCompatActivity {
         populateSpinner();
     }
 
-    public void timePicker(View view)
+    public void timePicker()
     {
         chooseTime = findViewById(R.id.timeSelection);
         chooseTime.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +83,6 @@ public class EditEventActivity extends AppCompatActivity {
                 timePickerDialog.show();
             }
         });
-    }
     }
 
     public void setFields(String id) {
@@ -130,6 +130,7 @@ public class EditEventActivity extends AppCompatActivity {
                 type = myCursor.getString(2);
                 description = myCursor.getString(3);
                 date = myCursor.getString(4);
+                time = myCursor.getString(5);
 
                 TextView titleTextView = (TextView) findViewById(R.id.title);
                 titleTextView.setText(title);
@@ -140,6 +141,9 @@ public class EditEventActivity extends AppCompatActivity {
                 dateTextView.setText(date);
                // Spinner typeSpinner = (Spinner)findViewById(R.id.noteTypeSpinner);
                 //Set spinner
+
+                EditText timeSel = (EditText) findViewById(R.id.timeSelection);
+                timeSel.setText(time);
             }
         }
 
@@ -158,28 +162,40 @@ public class EditEventActivity extends AppCompatActivity {
         String type = "school";
         String description = ((EditText) findViewById(R.id.content)).getText().toString();
         String date = ((EditText) findViewById(R.id.date)).getText().toString();
+        String timeSel = ((EditText)findViewById(R.id.timeSelection)).getText().toString();
 
 
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TITLE, title);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TYPE, type);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION, description);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DATE, date);
+        myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, timeSel);
+
 
         getContentResolver().insert(PlannerProvider.CONTENT_URI, myCV);
 
-        String[] projection = {
-                PlannerProvider.PLANNER_TABLE_COL_ID,
-                PlannerProvider.PLANNER_TABLE_COL_TITLE,
-                PlannerProvider.PLANNER_TABLE_COL_TYPE,
-                PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                PlannerProvider.PLANNER_TABLE_COL_DATE,};
+//        String[] projection = {
+//                PlannerProvider.PLANNER_TABLE_COL_ID,
+//                PlannerProvider.PLANNER_TABLE_COL_TITLE,
+//                PlannerProvider.PLANNER_TABLE_COL_TYPE,
+//                PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
+//                PlannerProvider.PLANNER_TABLE_COL_DATE,
+//                PlannerProvider.PLANNER_TABLE_COL_TIME};
+//
+//        Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, null);
+//        if (myCursor != null && myCursor.getCount() > 0) {
+//            //String getTitle = myCursor.getString(1);
+//           // Toast.makeText(getApplicationContext(), "Created Event: " + getTitle, Toast.LENGTH_LONG).show();
+//
+//        }
 
-        Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, null);
-        if (myCursor != null && myCursor.getCount() > 0) {
-            //String getTitle = myCursor.getString(1);
-           // Toast.makeText(getApplicationContext(), "Created Event: " + getTitle, Toast.LENGTH_LONG).show();
+        String dateTime = date + " " + timeSel;
 
-        }
+        Random random = new Random();
+        int randomInteger = random.nextInt();
+
+        createNotification(dateTime, title, randomInteger);
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -191,7 +207,7 @@ public class EditEventActivity extends AppCompatActivity {
         String type = "Example";
         String description = ((EditText) findViewById(R.id.content)).getText().toString();
         String date = ((EditText) findViewById(R.id.date)).getText().toString();
-        String time = "8:00";
+        String timeSel = ((EditText)findViewById(R.id.timeSelection)).getText().toString();
         String thisId = id;
 
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_ID, thisId);
@@ -199,14 +215,15 @@ public class EditEventActivity extends AppCompatActivity {
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TYPE, type);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION, description);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DATE, date);
-        myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, time);
+        myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, timeSel);
 
         String[] projection = {
                 PlannerProvider.PLANNER_TABLE_COL_ID,
                 PlannerProvider.PLANNER_TABLE_COL_TITLE,
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                PlannerProvider.PLANNER_TABLE_COL_DATE};
+                PlannerProvider.PLANNER_TABLE_COL_DATE,
+                PlannerProvider.PLANNER_TABLE_COL_TIME};
 
         Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, null);
 
@@ -217,6 +234,7 @@ public class EditEventActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Updated Event " + title, Toast.LENGTH_LONG).show();
         }
+
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -335,10 +353,10 @@ public class EditEventActivity extends AppCompatActivity {
             return;
         }
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm a");
-            Date dateOb = sdf.parse(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+            Date date1 = sdf.parse(date);
             Calendar cal = Calendar.getInstance();
-            cal.setTime(dateOb);
+            cal.setTime(date1);
             NotificationScheduler.setReminder(this, AlarmReceiver.class, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
                     cal.get(Calendar.DAY_OF_WEEK), cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), title, id);
         }

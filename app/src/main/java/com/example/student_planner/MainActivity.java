@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 PlannerProvider.PLANNER_TABLE_COL_TITLE,
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
-                PlannerProvider.PLANNER_TABLE_COL_DATE
+                PlannerProvider.PLANNER_TABLE_COL_DATE,
+                PlannerProvider.PLANNER_TABLE_COL_TIME
         };
 
         String sel = PlannerProvider.PLANNER_TABLE_COL_DATE + " = ?";
