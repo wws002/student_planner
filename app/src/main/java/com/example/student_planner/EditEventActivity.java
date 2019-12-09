@@ -48,7 +48,7 @@ public class EditEventActivity extends AppCompatActivity {
         id = getIntent().getStringExtra("Id");
         setFields(id);
         createNotificationChannel();
-        timePicker();
+        //timePicker();
 
     }
 
@@ -107,8 +107,6 @@ public class EditEventActivity extends AppCompatActivity {
                         PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
                         PlannerProvider.PLANNER_TABLE_COL_DATE,
                         PlannerProvider.PLANNER_TABLE_COL_TIME};
-                        PlannerProvider.PLANNER_TABLE_COL_TIME,
-                        PlannerProvider.PLANNER_TABLE_COL_ADDRESS};
 
                 Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, "_ID DESC");
 
@@ -135,7 +133,6 @@ public class EditEventActivity extends AppCompatActivity {
                 description = myCursor.getString(3);
                 date = myCursor.getString(4);
                 time = myCursor.getString(5);
-                address = myCursor.getString(6);
 
 
                 TextView titleTextView = (TextView) findViewById(R.id.title);
@@ -187,7 +184,6 @@ public class EditEventActivity extends AppCompatActivity {
         String description = ((EditText) findViewById(R.id.content)).getText().toString();
         String date = ((EditText) findViewById(R.id.date)).getText().toString();
         String timeSel = ((EditText)findViewById(R.id.timeSelection)).getText().toString();
-        String address = ((EditText)findViewById(R.id.address)).getText().toString();
 
 
 
@@ -196,7 +192,6 @@ public class EditEventActivity extends AppCompatActivity {
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION, description);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DATE, date);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, timeSel);
-        myCV.put(PlannerProvider.PLANNER_TABLE_COL_ADDRESS, address);
 
         getContentResolver().insert(PlannerProvider.CONTENT_URI, myCV);
 
@@ -206,8 +201,7 @@ public class EditEventActivity extends AppCompatActivity {
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
                 PlannerProvider.PLANNER_TABLE_COL_DATE,
-                PlannerProvider.PLANNER_TABLE_COL_TIME,
-                PlannerProvider.PLANNER_TABLE_COL_ADDRESS};
+                PlannerProvider.PLANNER_TABLE_COL_TIME};
 
         String dateTime = date + " " + timeSel;
 
@@ -216,10 +210,9 @@ public class EditEventActivity extends AppCompatActivity {
 
         createNotification(dateTime, title, randomInteger);
 
-        }
-
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+
     }
 
     private void editItem() {
@@ -231,7 +224,6 @@ public class EditEventActivity extends AppCompatActivity {
         String description = ((EditText) findViewById(R.id.content)).getText().toString();
         String date = ((EditText) findViewById(R.id.date)).getText().toString();
         String timeSel = ((EditText)findViewById(R.id.timeSelection)).getText().toString();
-        String address = ((EditText)findViewById(R.id.address)).getText().toString();
 
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_ID, thisId);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TITLE, title);
@@ -239,7 +231,6 @@ public class EditEventActivity extends AppCompatActivity {
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION, description);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_DATE, date);
         myCV.put(PlannerProvider.PLANNER_TABLE_COL_TIME, timeSel);
-        myCV.put(PlannerProvider.PLANNER_TABLE_COL_ADDRESS, address);
 
         String[] projection = {
                 PlannerProvider.PLANNER_TABLE_COL_ID,
@@ -247,8 +238,7 @@ public class EditEventActivity extends AppCompatActivity {
                 PlannerProvider.PLANNER_TABLE_COL_TYPE,
                 PlannerProvider.PLANNER_TABLE_COL_DESCRIPTION,
                 PlannerProvider.PLANNER_TABLE_COL_DATE,
-                PlannerProvider.PLANNER_TABLE_COL_TIME,
-                PlannerProvider.PLANNER_TABLE_COL_ADDRESS};
+                PlannerProvider.PLANNER_TABLE_COL_TIME};
 
         Cursor myCursor = getContentResolver().query(PlannerProvider.CONTENT_URI, projection, null, null, null);
 
@@ -291,8 +281,14 @@ public class EditEventActivity extends AppCompatActivity {
             case R.id.date:
                 calendarPicker();
                 break;
+
+            case R.id.timeSelection:
+                timePicker();
+                break;
+
             default:
                 break;
+
 
            // case R.id.maps:
              //   openMap();

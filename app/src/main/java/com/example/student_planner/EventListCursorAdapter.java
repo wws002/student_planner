@@ -46,16 +46,16 @@ public class EventListCursorAdapter  extends CursorAdapter {
         //set circle to appropriate color
         switch (type)
         {
-            case "school" :
+            case "School" :
                 circle.setColorFilter(Color.parseColor("red"), PorterDuff.Mode.SRC_ATOP);
                 break;
-            case "work" :
+            case "Work" :
                 circle.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_ATOP);
                 break;
             case "personal":
                 circle.setColorFilter(Color.parseColor("green"), PorterDuff.Mode.SRC_ATOP);
                 break;
-            case "social":
+            case "Social":
                 circle.setColorFilter(Color.parseColor("yellow"), PorterDuff.Mode.SRC_ATOP);
                 break;
             default :
